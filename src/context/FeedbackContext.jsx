@@ -14,15 +14,16 @@ export const FeedbackProvider = ({ children }) => {
     fetchFeedback();
   }, []);
 
-  //fetch feedback and set feedbackc
+  // Fetch feedback
   const fetchFeedback = async () => {
     const response = await fetch(`/feedback?_sort=id&_order=desc`);
     const data = await response.json();
+
     setFeedback(data);
     setIsLoading(false);
   };
-  
-  //add feedbacks
+
+  // Add feedback
   const addFeedback = async (newFeedback) => {
     const response = await fetch("/feedback", {
       method: "POST",
@@ -31,12 +32,13 @@ export const FeedbackProvider = ({ children }) => {
       },
       body: JSON.stringify(newFeedback),
     });
+
     const data = await response.json();
 
     setFeedback([data, ...feedback]);
   };
-  
-  //delete feedback
+
+  // Delete feedback
   const deleteFeedback = async (id) => {
     if (window.confirm("Are you sure you want to delete?")) {
       await fetch(`/feedback/${id}`, { method: "DELETE" });
@@ -45,7 +47,7 @@ export const FeedbackProvider = ({ children }) => {
     }
   };
 
-  //update item
+  // Update feedback item
   const updateFeedback = async (id, updItem) => {
     const response = await fetch(`/feedback/${id}`, {
       method: "PUT",
@@ -57,16 +59,18 @@ export const FeedbackProvider = ({ children }) => {
 
     const data = await response.json();
 
-    setFeedback(feedback.map((item) => (item.id === id ? data : item)))
+    // NOTE: no need to spread data and item
+    setFeedback(feedback.map((item) => (item.id === id ? data : item)));
+
+    // FIX: this fixes being able to add a feedback after editing
+    // credit to Jose https://www.udemy.com/course/react-front-to-back-2022/learn/lecture/29768200#questions/16462688
+    setFeedbackEdit({
+      item: {},
+      edit: false,
+    });
   };
 
-  setFeedbackEdit({
-    item: {},
-    edit: false,
-  })
-
-
-  //set/update item
+  // Set item to be updated
   const editFeedback = (item) => {
     setFeedbackEdit({
       item,
@@ -90,4 +94,5 @@ export const FeedbackProvider = ({ children }) => {
     </FeedbackContext.Provider>
   );
 };
+
 export default FeedbackContext;

@@ -13,11 +13,9 @@ function App() {
     <FeedbackProvider>
       <Router>
         <Header />
-
         <div className="container">
           <Routes>
             <Route
-              exact
               path="/"
               element={
                 <>
