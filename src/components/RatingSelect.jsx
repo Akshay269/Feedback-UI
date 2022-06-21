@@ -1,19 +1,10 @@
-
-
-function RatingSelect({ select,selected }) {
-  // const [selected, setSelected] = useState(10);
-
-  // const { feedbackEdit } = useContext(FeedbackContext);
-
-  // useEffect(() => {
-  //   setSelected(feedbackEdit.item.rating);
-  // }, [feedbackEdit]);
-
+function RatingSelect({ select, selected }) {
+  
   const handleChange = (e) => {
-    // setSelected(+e.currentTarget.value);
-    select(+e.currentTarget.value);
-  };
+    select(+e.currentTarget.value)
+  }
 
+  // NOTE: simplified with iteration
   return (
     <ul className='rating'>
       {Array.from({ length: 10 }, (_, i) => (
@@ -30,7 +21,7 @@ function RatingSelect({ select,selected }) {
         </li>
       ))}
     </ul>
-  );
+  )
 }
 
-export default RatingSelect;
+export default RatingSelect
