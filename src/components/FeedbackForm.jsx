@@ -7,7 +7,6 @@ import RatingSelect from "./RatingSelect";
 
 function FeedbackForm() {
   const [text, setText] = useState("");
-
   const [btnDisabled, setBtnDisabled] = useState(true);
   const [message, setMessage] = useState("");
   const [rating, setRating] = useState(10);
@@ -23,11 +22,11 @@ function FeedbackForm() {
     }
   }, [feedbackEdit]);
 
-  const handleTextChange = (e) => {
-    if (text === "") {
+  const handleTextChange = ({ target: { value } }) => {
+    if (value=== "") {
       setBtnDisabled(true);
       setMessage(null);
-    } else if (text !== "" && text.trim().length <= 10) {
+    } else if (value.trim().length < 10) {
       setMessage("Text must be at least 10 characters");
       setBtnDisabled(true);
     } else {
@@ -35,8 +34,9 @@ function FeedbackForm() {
       setBtnDisabled(false);
     }
 
-    setText(e.target.value);
+    setText(value);
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (text.trim().length > 10) {
@@ -44,13 +44,14 @@ function FeedbackForm() {
         text,
         rating,
       };
-      
+
       if (feedbackEdit.edit === true) {
         updateFeedback(feedbackEdit.item.id, newFeedback);
       } else {
         addFeedback(newFeedback);
       }
-
+      setBtnDisabled(true);
+      setRating(10);
       setText("");
     }
   };

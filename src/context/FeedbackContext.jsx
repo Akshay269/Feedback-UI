@@ -62,6 +62,12 @@ export const FeedbackProvider = ({ children }) => {
     );
   };
 
+  setFeedbackEdit({
+    item: {},
+    edit: false,
+  })
+
+
   //set/update item
   const editFeedback = (item) => {
     setFeedbackEdit({
