@@ -1,4 +1,3 @@
-
 import PropTypes from "prop-types";
 
 function Button({ children, version, type, isDisabled }) {
@@ -22,4 +21,4 @@ Button.propTypes = {
   isDisabled: PropTypes.bool,
 };
 
-export default Button; 
+export default Button;

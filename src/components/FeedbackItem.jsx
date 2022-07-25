@@ -1,23 +1,28 @@
-import Card from "./shared/Card";
-import { FaTimes, FaEdit } from "react-icons/fa";
-import { useContext } from "react";
-import FeedbackContext from "../context/FeedbackContext";
+import PropTypes from "prop-types";
 
-function FeedbackItem({ item }) {
-  const { deleteFeedback, editFeedback } = useContext(FeedbackContext);
+function Card({ children, reverse }) {
+  // return <div className={`card ${reverse && 'reverse'}`}>{children}</div>
 
   return (
-    <Card>
-      <div className="num-display">{item.rating}</div>
-      <button onClick={() => deleteFeedback(item.id)} className="close">
-        <FaTimes color="purple" />
-      </button>
-      <button onClick={() => editFeedback(item)} className="edit">
-        <FaEdit color="purple" />
-      </button>
-      <div className="text-display">{item.text}</div>
-    </Card>
+    <div
+      className="card"
+      style={{
+        backgroundColor: reverse ? "rgba(0,0,0,0.4)" : "#fff",
+        color: reverse ? "#fff" : "#000",
+      }}
+    >
+      {children}
+    </div>
   );
 }
 
-export default FeedbackItem;
+Card.defaultProps = {
+  reverse: false,
+};
+
+Card.propTypes = {
+  children: PropTypes.node.isRequired,
+  reverse: PropTypes.bool,
+};
+
+export default Card;
